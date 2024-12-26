@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <title>Skillbus CRM</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/popperjscore.js"></script>
+  <script defer src="js/tippy.js"></script>
+  <script defer src="js/choices.js"></script>
+  <script defer src="js/main.js"></script>
+  <!-- <script defer src="js/js.js"></script> -->
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <header class="header">
+
+      <div class="header__container container flex">
+
+        <a class="header__link" href="">
+          <img src="img/logo.jpg" alt="" class="header__logo">
+        </a>
+
+        <input id="search" type="text" class="header__input" data-search="search" placeholder="Введите запрос">
+
+        <ul id="search-list" class="header__list list-reset"></ul>
+
+      </div>
+
+    </header>
+
+    <section class="main flex">
+
+      <h1 class="main__title">Клиенты</h1>
+
+      <div class="main__container container">
+
+        <div class="main__loader-container flex">
+
+          <div class="main__container-scroll">
+
+            <table class="main__table clients-table">
+
+              <thead class="main__table-head">
+                <tr class="head-tr">
+                  <th class="main__table-th id-th th-sort" data-column="id">ID
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2 6L2.705 6.705L5.5 3.915L5.5 10L6.5 10L6.5 3.915L9.29 6.71L10 6L6 2L2 6Z"
+                        fill="#9873FF" />
+                    </svg>
+                  </th>
+                  <th class="main__table-th name-th th-sort" data-column="fio">Фамилия Имя Отчество
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2 6L2.705 6.705L5.5 3.915L5.5 10L6.5 10L6.5 3.915L9.29 6.71L10 6L6 2L2 6Z"
+                        fill="#9873FF" />
+                    </svg>
+                  </th>
+                  <th id="create-th" class="main__table-th create-th th-sort" data-column="createdAt">Дата и время
+                    создания
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2 6L2.705 6.705L5.5 3.915L5.5 10L6.5 10L6.5 3.915L9.29 6.71L10 6L6 2L2 6Z"
+                        fill="#9873FF" />
+                    </svg>
+                  </th>
+                  <th id="changes-th" class="main__table-th changes-th th-sort" data-column="updatedAt">Последние
+                    изменения
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2 6L2.705 6.705L5.5 3.915L5.5 10L6.5 10L6.5 3.915L9.29 6.71L10 6L6 2L2 6Z"
+                        fill="#9873FF" />
+                    </svg>
+                  </th>
+                  <th class="main__table-th contacts-th">Контакты</th>
+                  <th class="main__table-th actions-th">Действия</th>
+                </tr>
+              </thead>
+              <tbody class="main__table-body" id="clients-list">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="main__btn-container flex">
+          <button id="modal-create-btn" class="main__button btn-reset">Добавить клиента</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="modal-change" class="change modal fix-block" role="dialog" aria-hidden="true">
+
+      <div id="change__modal__content" class="change__modal__content flex modal__content">
+
+        <form action="PATCH" id="change__form" class="change__form">
+
+          <div class="change__container-1 change__container flex">
+            <h2 class="change__title">Изменить данные</h2>
+            <form action="" class="change__form flex">
+              <p class="change__subtitle">Фамилия<span class="change__subtitle-accent">*</span></p>
+              <input id="change__input-surname" type="text" class="change__input input-style" data-error='surname'>
+              <p class="change__subtitle">Имя<span class="change__subtitle-accent">*</span></p>
+              <input id="change__input-name" type="text" class="change__input input-style" data-error='name'>
+              <p class="change__subtitle">Отчество</p>
+              <input id="change__input-lastname" type="text" class="change__input input-style">
+            </form>
+          </div>
+
+          <div id="change__container-2" class="change__container-2 flex">
+
+            <div id="change__contacts-container" class="change__contacts-container"></div>
+
+            <button id="change__add-contact" class="change__add-contact btn-add-contact btn-reset">Добавить
+              контакт</button>
+
+          </div>
+
+          <div id="change__container-3" class="change__container-3 flex">
+            <div id="change__warning-style" class="change__warning-style warning-style"></div>
+            <button id="change__save-client" class="change__save btn-accent btn-reset" type="submit">Сохранить</button>
+            <button id="change__delete-btn" class="change__delete btn-cancel btn-reset">Удалить клиента</button>
+          </div>
+
+        </form>
+
+        <div class="change__close-window-container close-window-container">
+          <button id="modal-close-change" class="modal-close-change change__close-window close-window modal__close">
+            <svg class="modal__close" width="29" height="29" viewBox="0 0 29 29" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M22.2332 7.73333L21.2665 6.76666L14.4998 13.5334L7.73318 6.7667L6.76652 7.73336L13.5332 14.5L6.76654 21.2667L7.73321 22.2333L14.4998 15.4667L21.2665 22.2334L22.2332 21.2667L15.4665 14.5L22.2332 7.73333Z"
+                fill="#B0B0B0" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-create" class="create modal fix-block">
+
+      <div id="create__modal__content" class="create__modal__content modal__content  flex">
+
+        <form action="POST" id="create__form" class="create__form">
+
+          <div class="create__container-1 create__container flex">
+            <h2 class="create__title">Новый клиент</h2>
+            <input id="create__input-surname" type="text" class="create__input input-style" data-error='surname'
+              placeholder="Фамилия*">
+            <input id="create__input-name" type="text" class="create__input input-style" data-error="name"
+              placeholder="Имя*">
+            <input id="create__input-lastname" type="text" class="create__input input-style" placeholder="Отчество">
+          </div>
+
+
+          <div id="create__container-2" class="create__container-2 flex">
+
+            <div id="create__contacts-container" class="create__contacts-container"></div>
+
+            <button id="create__add-contact" class="create__add-contact btn-add-contact btn-reset">Добавить
+              контакт</button>
+
+          </div>
+
+          <div id="create__container-3" class="create__container-3 create__container flex">
+            <div id="create__warning-style" class="create__warning-style warning-style"></div>
+            <button id="create__save-client" class="create__save btn-accent btn-reset" type="submit">Сохранить</button>
+            <button id="modal-close-create"
+              class="modal-close-create create__cancel btn-cancel btn-reset">Отмена</button>
+          </div>
+
+        </form>
+
+        <div class="create__close-window-container close-window-container">
+          <button id="modal-close-create"
+            class="modal-close-create create__cancel create__close-window close-window modal__close">
+            <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M22.2332 7.73333L21.2665 6.76666L14.4998 13.5334L7.73318 6.7667L6.76652 7.73336L13.5332 14.5L6.76654 21.2667L7.73321 22.2333L14.4998 15.4667L21.2665 22.2334L22.2332 21.2667L15.4665 14.5L22.2332 7.73333Z"
+                fill="#B0B0B0" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="modal-delete" class="delete modal fix-block" role="dialog" aria-hidden="true">
+
+      <div class="delete__container flex modal__content">
+
+        <h2 class="delete__title">Удалить клиента</h2>
+        <p class="delete__question">Вы действительно хотите удалить данного клиента?</p>
+        <button id="delete-client__btn" class="delete__btn btn-accent btn-reset">Удалить</button>
+        <button id="modal-close-delete" class="modal-close-delete delete__cancel btn-cancel btn-reset">Отмена</button>
+        <div class="delete__close-window-container close-window-container">
+          <button id="modal-close-delete" class="modal-close-delete delete__close-window close-window modal__close">
+            <svg class="modal__close" width="29" height="29" viewBox="0 0 29 29" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M22.2332 7.73333L21.2665 6.76666L14.4998 13.5334L7.73318 6.7667L6.76652 7.73336L13.5332 14.5L6.76654 21.2667L7.73321 22.2333L14.4998 15.4667L21.2665 22.2334L22.2332 21.2667L15.4665 14.5L22.2332 7.73333Z"
+                fill="#B0B0B0" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
