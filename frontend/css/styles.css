@@ -61,6 +61,8 @@ body {
 
 .wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .flex {
@@ -632,6 +634,7 @@ body {
 .main {
   /* min-height: 100%; */
   flex-direction: column;
+  justify-self: center;
   justify-content: center;
   margin: 0 auto;
   padding: 0 20px 50px;
