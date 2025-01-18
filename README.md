@@ -2,14 +2,33 @@
 
 <h3 style="font-size: 24px;">Система управления контактными данными клиентов.</h3>
 
+<div align="center">
+  <img src="https://i.imgur.com/YWXP7vj.jpeg" alt="Демо приложения" width="80%">
+</div>
+
 <h2>Описание</h2>
 <h3>Приложение позволяет работать с контактной информацией клиентов и предоставляет следующие возможности:
 - Просмотр списка клиентов в виде таблицы;
 - Добавление новых клиентов;
+  <div align="center">
+  <img src="https://i.imgur.com/j2uRKcT.gif" alt="Добавление нового клиента" width="80%">
+</div>
 - Изменение информации о существующем клиенте;
+  <div align="center">
+  <img src="https://i.imgur.com/YWXP7vj.jpeg" alt="Демо приложения" width="80%">
+</div>
 - Удаление клиентов;
+  <div align="center">
+  <img src="https://i.imgur.com/YWXP7vj.jpeg" alt="Демо приложения" width="80%">
+</div>
 - Сортировка клиентов по полю;
+  <div align="center">
+  <img src="https://i.imgur.com/YWXP7vj.jpeg" alt="Демо приложения" width="80%">
+</div>
 - Поиск клиента
+  <div align="center">
+  <img src="https://i.imgur.com/YWXP7vj.jpeg" alt="Демо приложения" width="80%">
+</div>
 </h3>
 
 <h2>Разработка</h2>
