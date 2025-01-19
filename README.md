@@ -27,7 +27,7 @@
 </div>
 <h3>- Поиск клиента по имени и контактам.</h3>
   <div align="center">
-  <img src="https://i.imgur.com/aKdaUtK.gif" alt="Поиск клиентов" width="80%">
+  <img src="https://i.imgur.com/IB6gfxO.gif" alt="Поиск клиентов" width="80%">
 </div>
 
 <h2>Разработка</h2>
