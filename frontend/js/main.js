@@ -18,7 +18,6 @@ let windowInnerHeight = window.innerHeight
 let header = document.querySelector('.header')
 let headerHeight = header.offsetHeight
 let mainSection = document.querySelector('.main')
-// mainSection.style.minHeight = windowInnerHeight - headerHeight - 50 + 'px'
 
 const SERVER_URL = 'http://localhost:3000'
 
@@ -111,7 +110,6 @@ async function serverAddClient(obj) {
     let inputWrap = document.getElementById('create__warning-style')
 
     if (response.ok) {
-      // здесь вместо вывода в консоль закрываем модалку и добавляем клиента в таблицу
       console.log('Добавление клиента', data);
       inputWrap.innerHTML = ''
       return data;
@@ -120,8 +118,7 @@ async function serverAddClient(obj) {
     inputWrap.innerHTML = ''
     showErrorMessages(inputsElems, data.errors, inputWrap);
   } catch (error) {
-    // console.log(error)
-    // обработка ошибки разбора json
+    console.error(error)
   }
 }
 
@@ -144,7 +141,7 @@ async function serverChangeClient(obj) {
     showErrorMessages(inputsElems, data.errors, inputWrap);
 
   } catch (error) {
-
+    console.error(error)
   }
 
 
@@ -185,14 +182,12 @@ async function checkData() {
   if (serverData) {
     for (let i = 0; i < serverData.length; i++) {
       let client = serverData[i]
-      // console.log(client)
       clients.push(new Client(client.id, client.createdAt, client.updatedAt, client.name, client.surname, client.lastName, client.contacts))
     }
     render(clients)
   } else {
     render(clients)
   }
-  // console.log(clients)
   return clients;
 }
 
@@ -247,10 +242,6 @@ function newClientTR(client) {
 
   let count = 0
   btnsArr = []
-  // console.log(typeof client.contacts)
-  // console.log(client.contacts)
-  // console.log(client.contacts.length)
-  // if ((client.contacts.length) > 0 && client.contacts !== 'undefined') {
   if (client?.contacts) {
     if ((client.contacts.length) === 1) {
       if (client.contacts[0].type.includes('vk')) {
@@ -445,7 +436,6 @@ function newClientTR(client) {
 
   $btnDelete.addEventListener('click', function () {
     document.getElementById('modal-delete').classList.add('open');
-    // document.body.classList.add('stop-scroll')
     disableScroll()
     listener = deleteClient.bind(deleteClient, client.id, $clientTR)
     closeModal('delete', 'modal-close-delete', listener)
@@ -471,7 +461,6 @@ async function openChangeCard() {
   let clientId = document.createElement('div')
   clientId.classList.add('client-id')
   clientId.textContent = 'ID: ' + client.id
-  // console.log(client.id)
   document.getElementById('change__modal__content').append(clientId)
   let surnameInput = document.getElementById('change__input-surname')
   surnameInput.value = client.surname
@@ -538,7 +527,6 @@ async function openClientCard(btn, preloader) {
   let clientId = document.createElement('div')
   clientId.classList.add('client-id')
   clientId.textContent = 'ID: ' + client.id
-  // console.log(client.id)
   document.getElementById('change__modal__content').append(clientId)
   let surnameInput = document.getElementById('change__input-surname')
   surnameInput.value = client.surname
@@ -555,7 +543,6 @@ async function openClientCard(btn, preloader) {
     }
   }
   document.getElementById('modal-change').classList.add('open');
-  // document.body.classList.add('stop-scroll')
   disableScroll()
 
   deleteSmallPreloader(btn, preloader)
@@ -589,7 +576,6 @@ async function openClientCard(btn, preloader) {
         clearModal('change')
         savePreloader.remove()
         document.getElementById('modal-change').classList.remove('open')
-        // document.body.classList.remove('stop-scroll')
         enableScroll()
       }
     }
@@ -608,7 +594,6 @@ async function openClientCard(btn, preloader) {
 document.getElementById('change__add-contact').addEventListener('click', function (e) {
   e.preventDefault()
   clicksChange += 1
-  // console.log(clicksBtn)
 
   if (blocksCountChange >= 0 && blocksCountChange < 10) {
     createContactBlock('change')
@@ -739,7 +724,6 @@ function classesForSorting(column) {
 document.getElementById('modal-create-btn').addEventListener('click', function () {
   document.getElementById('modal-create').classList.add('open');
   disableScroll()
-  // document.body.classList.add('stop-scroll')
   closeModal('create', 'modal-close-create')
 })
 
@@ -768,18 +752,14 @@ document.getElementById('create__save-client').addEventListener('click', async f
     if (typeof serverDataObj !== 'undefined') {
       clients.push(serverDataObj)
 
-      // console.log(clients)
       let newClients = await serverGetClients()
       render(newClients);
 
       clearModal('create')
       savePreloader.remove()
       document.getElementById('modal-create').classList.remove('open')
-      // document.body.classList.remove('stop-scroll')
       enableScroll()
       document.getElementById('create__warning-style').innerHTML = ''
-      // console.log(inputsElems)
-      // document.getElementById('create__warning-style').classList.add('hidden')
     }
   }
 })
@@ -812,7 +792,6 @@ function collectContacts(modal) {
 }
 
 function clearModal(modal) {
-  // location.href = window.location.pathname;
   let inputs = document.querySelectorAll('.' + modal + '__container-1 > input');
   for (input of inputs) {
     input.style.removeProperty('border-color')
@@ -842,14 +821,7 @@ function clearModal(modal) {
     cleanValidation(modal)
   }
   if (modal === 'change') {
-    // location.hash = ''
     history.pushState("", document.title, window.location.pathname);
-    // window.location.href = "http://127.0.0.1:5500/";
-    // document.location.href = ''
-    // window.history.back()
-    // window.location.replace(window.location.pathname)
-    // window.location.replace("http://127.0.0.1:5500/")
-    // window.location.href = window.location.pathname;
   }
 }
 
@@ -857,17 +829,14 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     if (document.getElementById('modal-create').classList.contains('open')) {
       document.getElementById('modal-create').classList.remove('open');
-      // document.body.classList.remove('stop-scroll')
       enableScroll()
       clearModal('create')
     } else if (document.getElementById('modal-change').classList.contains('open')) {
       document.getElementById('modal-change').classList.remove('open');
       enableScroll()
-      // document.body.classList.remove('stop-scroll')
       clearModal('change')
     } else if (document.getElementById('modal-delete').classList.contains('open')) {
       document.getElementById('modal-delete').classList.remove('open');
-      // document.body.classList.remove('stop-scroll')
       enableScroll()
       document.getElementById('delete-client__btn').removeEventListener('click', listener)
     }
@@ -881,7 +850,6 @@ document.querySelector('#modal-change .modal__content').addEventListener('click'
 document.getElementById('modal-change').addEventListener('click', event => {
   if (event._isClickWithInModal) return;
   document.getElementById('modal-change').classList.remove('open')
-  // document.body.classList.remove('stop-scroll')
   enableScroll()
   clearModal('change')
 })
@@ -893,7 +861,6 @@ document.querySelector('#modal-delete .modal__content').addEventListener('click'
 document.getElementById('modal-delete').addEventListener('click', event => {
   if (event._isClickWithInModal) return;
   document.getElementById('modal-delete').classList.remove('open')
-  // document.body.classList.remove('stop-scroll')
   enableScroll()
   document.getElementById('delete-client__btn').removeEventListener('click', listener)
 })
@@ -905,7 +872,6 @@ document.querySelector('#modal-create .modal__content').addEventListener('click'
 document.getElementById('modal-create').addEventListener('click', event => {
   if (event._isClickWithInModal) return;
   document.getElementById('modal-create').classList.remove('open')
-  // document.body.classList.remove('stop-scroll')
   enableScroll()
   clearModal('create')
 })
@@ -929,7 +895,6 @@ function closeModal(modal, btn, listener) {
 document.getElementById('create__add-contact').addEventListener('click', function (e) {
   e.preventDefault()
   clicksCreate += 1
-  // console.log(clicksBtn)
 
   if (blocksCountCreate >= 0 && blocksCountCreate < 10) {
     createContactBlock('create')
@@ -970,6 +935,7 @@ function createContactBlock(modal, obj) {
 
   const $input = document.createElement('input');
   $input.classList.add(modal + '__contact-input', modal + '__input', 'contact-input-style', 'input-style');
+  $input.placeholder = "Введите данные контакта"
   $input.setAttribute('data-error', 'contacts');
   if (obj) {
     $select.value = obj.type
@@ -1076,7 +1042,6 @@ function createList(data) {
   searchListIsOpen = 1
   let scrollDisabled
   console.log(searchListIsOpen)
-  // document.body.classList.add('stop-scroll')
   if (scrollDisabled !== 1) {
     disableScroll()
     scrollDisabled = 1
@@ -1102,7 +1067,6 @@ function createList(data) {
     searchItem.addEventListener('click', function () {
       searchInput.value = searchLink.textContent
       searchList.style.visibility = 'hidden'
-      // document.body.classList.remove('stop-scroll')
       enableScroll()
       scrollDisabled = 0
 
@@ -1137,7 +1101,6 @@ function createList(data) {
       moveDown(document.activeElement)
     } else if (e.key === 'Escape') {
       searchList.style.visibility = 'hidden'
-      // document.body.classList.remove('stop-scroll')
       enableScroll()
       scrollDisabled = 0
     }
@@ -1153,7 +1116,6 @@ function closeSearchList(a, b, e) {
 
     if (!withinBoundaries && e.target.dataset.search !== 'search') {
       searchList.style.visibility = 'hidden'
-      // document.body.classList.remove('stop-scroll')
       enableScroll()
       scrollDisabled = 0
       searchListIsOpen = 0
@@ -1168,7 +1130,6 @@ function searchOnEnter(item) {
   let searchLink = item.children[0]
   searchInput.value = searchLink.textContent
   searchList.style.visibility = 'hidden'
-  // document.body.classList.remove('stop-scroll')
   enableScroll()
   scrollDisabled = 0
   searchListIsOpen = 0
@@ -1267,14 +1228,6 @@ function validation(modal) {
   return totalError
 }
 
-// openClientCard()
-
-// let mask = document.querySelector('.mask');
-
-// window.addEventListener('load', () => {
-//   mask.classList.add('transparent')
-// })
-
 function showTableLoader() {
   let container = document.querySelector('.main__loader-container')
   container.style.minHeight = '325px'
@@ -1327,7 +1280,9 @@ function disableScroll() {
     el.style.paddingRight = paddingOffset
   })
   document.body.classList.add('stop-scroll')
-  document.body.style.paddingRight = paddingOffset
+  if (window.innerWidth > 1024) {
+    document.body.style.paddingRight = paddingOffset
+  }
 }
 
 function enableScroll() {
