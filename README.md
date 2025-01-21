@@ -32,9 +32,9 @@
 
 <h3>Приложение оптимизировано для работы на различных устройствах, обеспечивая удобный доступ с любого экрана.</h3>
 <div align="center">
-  <img align="top" src="https://i.imgur.com/RINFjFC.gif" alt="Изменение информации о клиенте" width="30%">
-  <img align="top" src="https://i.imgur.com/NedOT4Q.gif" alt="Изменение информации о клиенте" width="30%">
-  <img align="top" src="https://i.imgur.com/MhhVopO.gif" alt="Изменение информации о клиенте" width="30%">
+  <img align="top" src="https://i.imgur.com/RINFjFC.gif" alt="Демо приложения 1024" width="30%">
+  <img align="top" src="https://i.imgur.com/NedOT4Q.gif" alt="Демо приложения 768" width="30%">
+  <img align="top" src="https://i.imgur.com/MhhVopO.gif" alt="Демо приложения 320" width="30%">
 </div>
 
 <h2>Разработка</h2>
